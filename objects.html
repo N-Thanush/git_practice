@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coin Toss Game</title>
+</head>
+<body>
+
+  <button onclick="moves('heads')">Heads</button>
+  <button onclick="moves('tails')">Tails</button>
+
+  <script>
+
+    let obj = {
+      wins:0,
+      losses:0
+    };
+
+    function moves(playermove) {
+      const randomNumber = Math.random();
+      const result = randomNumber < 0.5 ? 'heads' : 'tails';
+
+      if (result === playermove) {
+        obj.wins++;
+        alert(`Both chose ${playermove}. You win! \n Wins: ${obj.wins} Losses: ${obj.losses}`);
+        
+
+      } else {
+        obj.losses++;
+        alert(`You chose ${playermove} and the computer chose ${result}. You lose!`);
+        alert(`Wins: ${obj.wins} Losses: ${obj.losses} \n Wins: ${obj.wins} Losses: ${obj.losses}`);
+      }
+    }
+  </script>
+
+</body>
+</html>
