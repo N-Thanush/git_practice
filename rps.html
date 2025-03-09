@@ -3,88 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Updated ROCK PAPER SCISSOR</title>
 </head>
 <body>
 
-  <p>Rock Paper Scissors</p>
-
-  <button onclick="userChoice='Rock'; finalResult(compMove())">
-    Rock
-  </button>
+  <button class="move-button" onclick="playermove('rock')"> <img src="img/rock-emoji.png" alt="Rock emoji" class="move-icon"> </button>
   
-  <button onclick="userChoice='Paper'; finalResult(compMove())">
-    Paper
-  </button>
+  <button class="move-button" onclick="playermove('paper')"><img src="img/paper-emoji.png" alt="Paper emoji" class="move-icon"></button>
+  
+  <button class="move-button" onclick="playermove('scissors')"><img src="img/scissors-emoji.png" alt="Scissor emoji" class="move-icon"></button>
 
-  <button onclick="userChoice='Scissors'; finalResult(compMove())">
-    Scissors
-  </button>
+  <p id="result"></p>
+  <p id="score">Wins: 0, Losses: 0, Ties: 0</p>
 
-  <script>
-    let wins = 0;
-    let ties = 0;
-    let losses = 0;
-
-    let userChoice = "Rock";
-
-    function compMove() {
-      let compChoice = Math.random();
-
-      if (compChoice >= 0 && compChoice < 1/3) {
-        return "Rock";
-      } else if (compChoice >= 1/3 && compChoice < 2/3) {
-        return "Paper";
-      } else {
-        return "Scissors";
-      }
-    }
-
-    function finalResult(compChoice) {
-      if (compChoice === userChoice) {
-        ties++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. It's a tie!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Rock" && userChoice === "Paper") {
-        wins++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You win!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Rock" && userChoice === "Scissors") {
-        losses++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You lose!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Paper" && userChoice === "Rock") {
-        losses++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You lose!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Paper" && userChoice === "Scissors") {
-        wins++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You win!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Scissors" && userChoice === "Rock") {
-        wins++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You win!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      } else if (compChoice === "Scissors" && userChoice === "Paper") {
-        losses++;
-        alert(`The computer's choice is ${compChoice} and your choice is ${userChoice}. You lose!
-Wins: ${wins}
-Ties: ${ties}
-Losses: ${losses}`);
-      }
-    }
-  </script>
 </body>
+
+<script>
+
+  function compMove() {
+    let x = Math.random();
+
+    if (x > 0 && x < 0.33) {
+      return 'rock';
+    } else if (x > 0.33 && x < 0.66) {
+      return 'paper';
+    } else {
+      return 'scissors';
+    }
+  }
+
+  let score = {
+    wins: 0,
+    losses: 0,
+    ties: 0
+  };
+
+  function playermove(value) {
+    let compChoice = compMove();
+    let result = '';
+
+    if (compChoice === value) {
+      score.ties++;
+      result = "It's a tie!";
+    } else if (
+      (compChoice === 'rock' && value === 'paper') ||
+      (compChoice === 'paper' && value === 'scissors') ||
+      (compChoice === 'scissors' && value === 'rock')
+    ) {
+      score.wins++;
+      result = "You win!";
+    } else {
+      score.losses++;
+      result = "You lose!";
+    }
+
+    document.getElementById('result').innerText = `Computer chose ${compChoice}. ${result}`;
+    document.getElementById('score').innerText = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`;
+  }
+
+</script>
+
+<style>
+
+.move-button {
+  background-color: transparent;
+  border: solid;
+  border-color: white;
+  border-width: 7px;
+  border-radius: 175px;
+  width: 200px;
+  height: 200px;
+  margin: 30px;
+  cursor: pointer;
+}
+
+.move-icon {
+  width: 150px;
+  height: 150px;
+}
+
+body {
+  background-color: black;
+  margin: 0px;
+  padding: 0px;
+  color: white;
+}
+
+</style>
+
 </html>
